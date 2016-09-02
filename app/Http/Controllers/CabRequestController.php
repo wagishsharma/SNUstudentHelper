@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\CabRequest;
+use App\User;
 
 class CabRequestController extends Controller
 {
@@ -13,14 +15,17 @@ class CabRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $cabRequests;
     public function __construct()
     {
         $this->middleware('auth');
+        $this->cabRequests = CabRequest::all();
     }
-    
+
     public function index()
     {
         //
+        return view('Cabs.addCabRequests',['$cabRequests'=>$this->cabRequests]);
     }
 
     /**
@@ -42,6 +47,14 @@ class CabRequestController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'pickupLocation' => 'required|max:255','destination'=>'required|max:255', 'date'=>'required','time'=>'required']);
+
+
+        $cabRequest =  $request->user()->cabRequests()->create(['pickupLocation'=>$request->pickupLocation,'destination'=>$request->destination,'date'=>$request->date,'time'=>$request->time]);
+    	
+    	return back();
+
     }
 
     /**

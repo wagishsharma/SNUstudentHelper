@@ -13,7 +13,7 @@ class CreateCabRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cabRequests', function (Blueprint $table) {
+        Schema::create('cab_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->string('pickupLocation');
@@ -21,6 +21,7 @@ class CreateCabRequestsTable extends Migration
             $table->date('date');
             $table->string('time');
             $table->timestamps();
+            
         });
     }
 
@@ -31,6 +32,6 @@ class CreateCabRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cabRequests');
+        Schema::dropIfExists('cab_requests');
     }
 }
