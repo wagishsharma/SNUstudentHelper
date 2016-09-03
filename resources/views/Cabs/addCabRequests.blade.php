@@ -67,7 +67,55 @@
             </div>
 
             <!-- Current cabRequests -->
-            
+        @if (count($cabRequests) > 0)
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Current cabRequests       
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-striped cabRequest-table">
+                            <thead>
+                                <th>Pickup Location</th>
+                                <th>Destination</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                
+                                <th>&nbsp;</th>
+                            </thead>
+                            <tbody>
+                                @foreach ($cabRequests as $cabRequest)
+                                    <tr>
+                                        <td class="table-text"><div>{{ $cabRequest->pickupLocation }}</div></td> 
+                                        <td class="table-text"><div>{{ $cabRequest->destination }}</div></td>
+                                        <td class="table-date"><div>{{ $cabRequest->date }}</div></td>
+                                        <td class="table-date"><div>{{ $cabRequest->time}}</div></td>
+                                        
+                                       
+                                        
+                                        
+                                        <!-- cabRequest Delete Button -->
+                                        <td>
+                                            <form action="{{url('cabRequest/' . $cabRequest->id)}}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+
+                                                <button type="submit" id="delete-cabRequest-{{ $cabRequest->id }}" class="btn btn-danger">
+                                                    <i class="fa fa-btn fa-trash"></i>Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
+      
         </div>
     </div>
 @endsection

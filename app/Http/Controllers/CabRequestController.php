@@ -23,9 +23,9 @@ class CabRequestController extends Controller
     }
 
     public function index()
-    {
+    {	$cabRequests= $this->cabRequests;
         //
-        return view('Cabs.addCabRequests',['$cabRequests'=>$this->cabRequests]);
+        return view('Cabs.addCabRequests',compact('cabRequests'));
     }
 
     /**
